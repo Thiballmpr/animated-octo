@@ -53,6 +53,19 @@ function bullet_collision()
         }
     }
 
+    //collision between bullet and ennemy
+    for (var i = 0; i < player1.bullets.length; i++)
+    {
+        if (Math.abs(player1.bullets[i].position.x) == player2.position.x &&
+            Math.abs(player1.bullets[i].position.y) == player2.position.y)
+        {
+            scene.remove(player1.bullets[i]);
+            player1.bullets.splice(i, 1);
+            player2.dead()
+            i--;
+        }
+    }
+
 }
 
 function player_collision()
