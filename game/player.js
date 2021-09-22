@@ -36,6 +36,7 @@ Player.prototype.dead = function () {
         //Nettoyage de la div container
         $("#container").html("");
         jQuery('#'+this.name+' >.life').text("Tu es mort !");
+
         init(this.life);
     }
 }

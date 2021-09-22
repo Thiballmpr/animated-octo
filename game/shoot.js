@@ -37,6 +37,8 @@ function collisions()
     bullet_collision();
     player_collision();
     player_falling();
+    bullet_player_collision();
+    player_ennemi_collision();
 }
 
 function bullet_collision()
@@ -52,20 +54,35 @@ function bullet_collision()
             i--;
         }
     }
+}
 
-    //collision between bullet and ennemy
+function bullet_player_collision()
+{
     for (var i = 0; i < player1.bullets.length; i++)
     {
-        if (Math.abs(player1.bullets[i].position.x) == player2.position.x &&
-            Math.abs(player1.bullets[i].position.y) == player2.position.y)
+        if ((player1.bullets[i].position.x >= player2.graphic.position.x - 10 &&
+            player1.bullets[i].position.y >= player2.graphic.position.y - 10) && 
+            (player1.bullets[i].position.x <= player2.graphic.position.x + 10 &&
+            player1.bullets[i].position.y <= player2.graphic.position.y + 10))
         {
             scene.remove(player1.bullets[i]);
             player1.bullets.splice(i, 1);
-            player2.dead()
             i--;
+            player2.graphic.position.x += 1000000;
+            player2.graphic.position.y += 1000000;
         }
     }
+}
 
+function player_ennemi_collision()
+{
+    if ((player1.graphic.position.x >= player2.graphic.position.x - 5 &&
+        player1.graphic.position.y >= player2.graphic.position.y - 5) && 
+        (player1.graphic.position.x <= player2.graphic.position.x + 5 &&
+        player1.graphic.position.y <= player2.graphic.position.y + 5))
+    {
+        player1.dead();
+    } 
 }
 
 function player_collision()
